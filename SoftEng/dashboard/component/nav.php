@@ -37,7 +37,7 @@ include_once 'user_privileges.php';
     <header>
         <nav class="navbar">
             <a class="navbar-brand" href="home.php">
-            <img src="../assets/img/plmun.png" alt="Logo" width="75" height="auto">
+                <img src="../assets/img/plmun.png" alt="Logo" width="75" height="auto">
             </a>
             <button class="openbtn" onclick="openNav()">&#9776; Menu</button>
         </nav>
@@ -52,18 +52,24 @@ include_once 'user_privileges.php';
         </div>
         <div class="bg-list d-flex flex-column align-items-start fw-bold gap-2 mt-4">
             <ul class="list-unstyled">
-                <li class="h7"><a class="nav-link" href="home.php"><i class="fal fa-home-lg-alt me-2"></i> Home</a></li>
-                <?php if (hasAccess('courses.php')): ?>
-                    <li class="h7"><a class="nav-link" href="course.php"><i class="fal fa-bookmark me-2"></i> Course</a></li>
-                <?php endif; ?>
-                <?php if (hasAccess('alumni_list.php')): ?>
-                    <li class="h7"><a class="nav-link" href="alumni_list.php"><i class="far fa-graduation-cap me-2"></i> Alumni</a></li>
-                <?php endif; ?>
-                <?php if (hasAccess('dean_list.php')): ?>
-                    <li class="h7"><a class="nav-link" href="alumni_list.php"><i class="far fa-graduation-cap me-2"></i> Alumni</a></li>
-                <?php endif; ?>
-                <?php if (hasAccess('program_list.php')): ?>
-                    <li class="h7"><a class="nav-link" href="alumni_list.php"><i class="far fa-graduation-cap me-2"></i> Alumni</a></li>
+                <?php if (isset($_SESSION['user_role'])): ?>
+                    <?php if ($_SESSION['user_role'] === 'Admin' || $_SESSION['user_role'] === 'Registrar'): ?>
+                        <li class="h7"><a class="nav-link" href="home.php"><i class="fal fa-home-lg-alt me-2"></i> Home</a></li>
+                    <?php endif; ?>
+                    <?php if (hasAccess('courses.php')): ?>
+                        <li class="h7"><a class="nav-link" href="course.php"><i class="fal fa-bookmark me-2"></i> Course</a></li>
+                    <?php endif; ?>
+                    <?php if (hasAccess('alumni_list.php')): ?>
+                        <li class="h7"><a class="nav-link" href="alumni_list.php"><i class="far fa-graduation-cap me-2"></i> Alumni List</a></li>
+                    <?php endif; ?>
+                    <?php if (hasAccess('dean_list.php')): ?>
+                        <li class="h7"><a class="nav-link" href="dean_list.php"><i class="far fa-graduation-cap me-2"></i> Alumni List</a></li>
+                    <?php endif; ?>
+                    <?php if (hasAccess('programchair_list.php')): ?>
+                        <li class="h7"><a class="nav-link" href="programchair_list.php"><i class="far fa-graduation-cap me-2"></i> Alumni List</a></li>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <li class="h7"><a class="nav-link" href="index.php">Login</a></li>
                 <?php endif; ?>
                 <li class="h7"><a class="nav-link" href="?logout=true">Logout<i class="fal fa-sign-out-alt ms-2"></i></a></li>
             </ul>
@@ -104,6 +110,5 @@ include_once 'user_privileges.php';
             }
         }
     </script>
-
 </body>
 </html>
